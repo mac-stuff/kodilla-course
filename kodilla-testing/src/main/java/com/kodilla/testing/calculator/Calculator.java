@@ -17,5 +17,4 @@ public class Calculator {
     public int subtract() {
         return first - second;
     }
-
 }
