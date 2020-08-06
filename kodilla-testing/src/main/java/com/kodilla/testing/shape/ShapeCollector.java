@@ -22,7 +22,7 @@ public class ShapeCollector {
     public String showFigures() {
         String figures = new String();
         for (int i = 0; i < this.shapeCollector.size(); i++) {
-            figures += (this.shapeCollector.get(i).getShapeName() + ", ");
+            figures += (this.shapeCollector.get(i).getShapeName().toLowerCase() + ", ");
         }
         return figures;
     }

@@ -24,6 +24,73 @@ class ShapeCollectorTest {
     }
 
     @Nested
+    @DisplayName("Tests for Shape Collector.")
+    class TestShapeCollector {
+
+        @Test
+        void testAddFigure() {
+            //Given
+            Triangle triangle = new Triangle(3, 7);
+            ShapeCollector shapeCollector = new ShapeCollector();
+            shapeCollector.addFigure(triangle);
+
+            //When
+            Object result = shapeCollector.getFigure(0);
+
+            //Then
+            Assertions.assertEquals(triangle, result);
+        }
+
+        @Test
+        void testRemoveFigure() {
+            //Given
+            Triangle triangle = new Triangle(3, 7);
+            ShapeCollector shapeCollector = new ShapeCollector();
+            shapeCollector.addFigure(triangle);
+
+            //When
+            shapeCollector.removeFigure(triangle);
+            String result = shapeCollector.showFigures();
+
+            //Then
+            Assertions.assertEquals("", result);
+        }
+
+        @Test
+        void testGetFigure() {
+            //Given
+            Triangle triangle = new Triangle(3, 7);
+            ShapeCollector shapeCollector = new ShapeCollector();
+            shapeCollector.addFigure(triangle);
+
+            //When
+            Object result = shapeCollector.getFigure(0);
+
+            //Then
+            Assertions.assertEquals(triangle, result);
+        }
+
+        @Test
+        void testShowFigure() {
+            //Given
+            Circle circle = new Circle(5);
+            Triangle triangle = new Triangle(3, 7);
+            Square square = new Square(4);
+
+            ShapeCollector shapeCollector = new ShapeCollector();
+            shapeCollector.addFigure(circle);
+            shapeCollector.addFigure(triangle);
+            shapeCollector.addFigure(square);
+
+            //When
+            String result = shapeCollector.showFigures();
+
+            //Then
+            Assertions.assertEquals("circle, triangle, square, ", result);
+        }
+    }
+
+    @Nested
     @DisplayName("Tests for square.")
     class TestSquare {
 
