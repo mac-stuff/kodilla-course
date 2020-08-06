@@ -1,6 +1,5 @@
 package com.kodilla.testing.shape;
 
-import com.kodilla.testing.shape.*;
 import org.junit.jupiter.api.*;
 
 @DisplayName("TDD: Shape Collector Test")
@@ -31,7 +30,7 @@ class ShapeCollectorTest {
         @Test
         void testGetShapeName() {
             //Given
-            Square square = new Square();
+            Square square = new Square(5);
 
             //When
             String result = square.getShapeName();
@@ -41,35 +40,25 @@ class ShapeCollectorTest {
         }
 
         @Test
-        void testGetShapeNameWhenNotExisting() {
-            //Given
-            Square square = new Square();
-
-            //When
-            String result = square.getShapeName();
-
-            //Then
-            Assertions.assertEquals("", result.toLowerCase());
-        }
-
-        @Test
         void testGetField() {
             //Given
-            Square square = new Square();
+            Square square = new Square(5);
 
             //When
+            square.setField();
             double result = square.getField();
 
             //Then
-            Assertions.assertEquals(25.00, result);
+            Assertions.assertEquals(20.00, result);
         }
 
         @Test
-        void testGetFieldWhenNotExisting() {
+        void testGetFieldWhenSideValueIsZero() {
             //Given
-            Square square = new Square();
+            Square square = new Square(0);
 
             //When
+            square.setField();
             double result = square.getField();
 
             //Then
@@ -84,45 +73,35 @@ class ShapeCollectorTest {
         @Test
         void testGetShapeName() {
             //Given
-            Circle circle = new Circle();
+            Circle circle = new Circle(5);
 
             //When
             String result = circle.getShapeName();
 
             //Then
-            Assertions.assertEquals("square", result.toLowerCase());
-        }
-
-        @Test
-        void testGetShapeNameWhenNotExisting() {
-            //Given
-            Circle circle = new Circle();
-
-            //When
-            String result = circle.getShapeName();
-
-            //Then
-            Assertions.assertEquals("", result.toLowerCase());
+            Assertions.assertEquals("circle", result.toLowerCase());
         }
 
         @Test
         void testGetField() {
             //Given
-            Circle circle = new Circle();
+            Circle circle = new Circle(5);
 
             //When
+            circle.setField();
             double result = circle.getField();
 
             //Then
-            Assertions.assertEquals(25.00, result);
+            Assertions.assertEquals(78.5, result);
         }
 
         @Test
-        void testGetFieldWhenNotExisting() {
+        void testGetFieldWhenRadiusValueIsZero() {
             //Given
-            Circle circle = new Circle();
+            Circle circle = new Circle(0);
 
             //When
+            circle.setField();
             double result = circle.getField();
 
             //Then
@@ -137,45 +116,35 @@ class ShapeCollectorTest {
         @Test
         void testGetShapeName() {
             //Given
-            Triangle triangle = new Triangle();
+            Triangle triangle = new Triangle(5,7);
 
             //When
             String result = triangle.getShapeName();
 
             //Then
-            Assertions.assertEquals("square", result.toLowerCase());
-        }
-
-        @Test
-        void testGetShapeNameWhenNotExisting() {
-            //Given
-            Triangle triangle = new Triangle();
-
-            //When
-            String result = triangle.getShapeName();
-
-            //Then
-            Assertions.assertEquals("", result.toLowerCase());
+            Assertions.assertEquals("triangle", result.toLowerCase());
         }
 
         @Test
         void testGetField() {
             //Given
-            Triangle triangle = new Triangle();
+            Triangle triangle = new Triangle(5, 7);
 
             //When
+            triangle.setField();
             double result = triangle.getField();
 
             //Then
-            Assertions.assertEquals(25.00, result);
+            Assertions.assertEquals(17.5, result);
         }
 
         @Test
-        void testGetFieldWhenNotExisting() {
+        void testGetFieldWhenHeightValueIsZero() {
             //Given
-            Triangle triangle = new Triangle();
+            Triangle triangle = new Triangle(10,0);
 
             //When
+            triangle.setField();
             double result = triangle.getField();
 
             //Then
