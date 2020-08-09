@@ -12,18 +12,6 @@ public class LibraryUser {
         this.peselId = peselId;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setPeselId(String peselId) {
-        this.peselId = peselId;
-    }
-
     public String getFirstname() {
         return firstname;
     }
@@ -34,6 +22,18 @@ public class LibraryUser {
 
     public String getPeselId() {
         return peselId;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setPeselId(String peselId) {
+        this.peselId = peselId;
     }
 
     @Override
