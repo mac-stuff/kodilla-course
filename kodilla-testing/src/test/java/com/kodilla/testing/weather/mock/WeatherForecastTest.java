@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 import static org.mockito.Mockito.when;
@@ -44,9 +46,11 @@ class WeatherForecastTest {
             sumOfTemperatures += values;
         }
         double averageTemperature = sumOfTemperatures / temperatures.size();
+        BigDecimal bd = BigDecimal.valueOf(averageTemperature);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
 
         //Then
-        Assertions.assertEquals("26.56", String.format("%.2f", averageTemperature));
+        Assertions.assertEquals(26.56, bd.doubleValue());
     }
 
     @Test
