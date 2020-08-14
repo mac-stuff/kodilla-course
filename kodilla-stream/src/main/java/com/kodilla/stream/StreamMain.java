@@ -11,6 +11,7 @@ import com.kodilla.stream.lambdaplus.Calculator;
 import com.kodilla.stream.lambdaplus.ExpressionExecutor;
 import com.kodilla.stream.person.People;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class StreamMain {
     public static void main(String[] args) {
 
+        LocalDate dateNow = LocalDate.now();
+
         Forum forum = new Forum();
         Map<Integer, ForumUser> resultStringOfUsers = forum.getUserList().stream()
                 .filter(user -> user.getSex() == 'm')
-                .filter(user -> user.getDateOfBirth().getYear() < 2000)
+                .filter(user -> user.getDateOfBirth().getYear() <= dateNow.getYear() - 20)
                 .filter(user -> user.getPostsCounter() >= 1)
                 .collect(Collectors.toMap(ForumUser::getId, user -> user));
 
