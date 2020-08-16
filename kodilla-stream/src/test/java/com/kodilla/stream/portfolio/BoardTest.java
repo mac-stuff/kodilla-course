@@ -157,10 +157,10 @@ class BoardTest {
         double average = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .mapToLong(DCounter -> (DAYS.between(DCounter.getCreated(), DCounter.getDeadline())))
+                .mapToLong(DCounter -> (DAYS.between(DCounter.getCreated(), LocalDate.now())))
                 .average().getAsDouble();
 
         // Then
-        assertEquals(df.format(18.33), df.format(average));
+        assertEquals(df.format(10.00), df.format(average));
     }
 }
