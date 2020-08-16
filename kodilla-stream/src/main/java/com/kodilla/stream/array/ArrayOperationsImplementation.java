@@ -2,7 +2,7 @@ package com.kodilla.stream.array;
 
 import java.util.stream.IntStream;
 
-public class ArrayAverage implements ArrayOperations {
+public class ArrayOperationsImplementation implements ArrayOperations {
 
     @Override
     public double getAverage(int[] numbers) {
@@ -15,4 +15,3 @@ public class ArrayAverage implements ArrayOperations {
                 .average().getAsDouble();
     }
 }
-

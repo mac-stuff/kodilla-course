@@ -12,15 +12,7 @@ class ArrayOperationsTest {
     @Test
     void testGetAverage() {
         //Given
-        ArrayOperations arrayOperations = numbers -> {
-            IntStream.range(0, numbers.length)
-                    .map(i -> i = numbers[i])
-                    .forEach(System.out::println);
-
-            return IntStream.range(0, numbers.length)
-                    .map(i -> i = numbers[i])
-                    .average().getAsDouble();
-        };
+        ArrayOperations arrayOperations = new ArrayOperationsImplementation();
 
         // When
         double average = arrayOperations.getAverage(numbers);
