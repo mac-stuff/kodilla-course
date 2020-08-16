@@ -6,11 +6,30 @@ import static com.kodilla.rps.Game.*;
 
 public class RpsRunner {
 
+    private static final Scanner scanner = new Scanner(System.in);
     private static boolean end = false;
-    private static String level = "1";
+    private static int roundCounter = 0;
+    private static String userName;
+    private static String level;
+    private static String winner;
+
+    public static void setUserName() {
+        System.out.println("★★★ HELLO! ★★★");
+        System.out.println("Please enter your name:");
+        userName = scanner.nextLine();
+    }
+
+    public static void setRoundsNumber() {
+        String roundNumber;
+        do {
+            System.out.println("Please enter number of rounds won for victory (max 5 rounds):");
+            roundNumber = scanner.nextLine();
+        } while (!roundNumber.equals("1") && !roundNumber.equals("2") && !roundNumber.equals("3") &&
+                !roundNumber.equals("4") && !roundNumber.equals("5"));
+        roundCounter = Integer.parseInt(roundNumber);
+    }
 
     public static void setLevel() {
-        Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Please choose level: ");
             System.out.println("\t normal press 1 \n" +
@@ -19,26 +38,35 @@ public class RpsRunner {
         } while (!level.equals("1") && !level.equals("2"));
     }
 
-    public static void setEnd() {
-        System.out.println("To play again press 1, to exit press any else key. \n" +
-                "Please enter your choice:");
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.nextLine();
-        if (!answer.equals("1")) {
+    public static void printWinner() {
+        if (winner.equals("user")) {
+            System.out.println("★★★ YOU WIN! ★★★ Congratulations!\n\n");
+            System.out.println("★★★ GOOD BYE! ★★★");
+            end = true;
+        } else if (winner.equals("computer")) {
+            System.out.println("★★★ COMPUTER WIN! ★★★ Game over!\n\n");
+            System.out.println("★★★ GOOD BYE! ★★★");
+            end = true;
+        } else {
+            System.out.println("★★★ DRAW! ★★★ Game over!\n\n");
             System.out.println("★★★ GOOD BYE! ★★★");
             end = true;
         }
     }
 
     public static void main(String[] args) {
-        System.out.println("★★★ HELLO! ★★★");
+        setUserName();
+        setRoundsNumber();
+        setLevel();
         while (!end) {
-            setLevel();
-            setUserMove();
+            setUserMove(userName);
             setComputerMove(level);
             setWinner();
-            printWinner();
-            setEnd();
+            winner = getWinner();
+            roundCounter --;
+            if (roundCounter == 0) {
+                printWinner();
+            }
         }
     }
 }

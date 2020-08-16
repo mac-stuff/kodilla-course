@@ -1,27 +1,18 @@
 package com.kodilla.rps;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 
     private static String userMove;
     private static String computerMove;
-    private static String winner;
+    private static final List<String> winners = new ArrayList<>();
 
-    public static void setUserMove() {
-        String userName = setUserName();
+    public static void setUserMove(String userName) {
         String userChoice = setUserChoice();
         Player user = new Player(userName, userChoice);
         System.out.println(user.printMessage());
         userMove = user.getChoice();
-    }
-
-    private static String setUserName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter your name:");
-        return scanner.nextLine();
     }
 
     private static String setUserChoice() {
@@ -76,25 +67,42 @@ public class Game {
 
     public static void setWinner() {
         if (userMove.equals("1") && computerMove.equals("2")) {
-            winner = "user";
+            winners.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
         } else if (userMove.equals("1") && computerMove.equals("3")) {
-            winner = "computer";
+            winners.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
         } else if (userMove.equals("2") && computerMove.equals("1")) {
-            winner = "computer";
+            winners.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
         } else if (userMove.equals("2") && computerMove.equals("3")) {
-            winner = "user";
+            winners.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
         } else if (userMove.equals("3") && computerMove.equals("1")) {
-            winner = "user";
+            winners.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
         } else if (userMove.equals("3") && computerMove.equals("2")) {
-            winner = "computer";
+            winners.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
         }
     }
 
-    public static void printWinner() {
-        if (winner.equals("user")) {
-            System.out.println("★★★ YOU WIN! ★★★ Congratulations!\n\n");
+    public static String getWinner() {
+        int userWonCounter = 0;
+        int computerWonCounter = 0;
+        for(String winner : winners) {
+            if(winner.equals("user")) {
+                userWonCounter ++;
+            } else {
+                computerWonCounter ++;
+            }
+        }
+        if (userWonCounter > computerWonCounter) {
+            return "user";
+        } else if (userWonCounter < computerWonCounter) {
+            return "computer";
         } else {
-            System.out.println("★★★ COMPUTER WIN! ★★★ Game over!\n\n");
+            return "draw";
         }
     }
 }
