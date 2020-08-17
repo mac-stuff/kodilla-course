@@ -90,7 +90,18 @@ public class Game {
             winnersList.add("computer");
             System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★");
         }
-        System.out.println("STATISTICS: " + winnersList + "\n");
+        System.out.println("STATISTICS:");
+        int user = 0;
+        int computer = 0;
+        for(String winner: winnersList) {
+            if(winner.equals("user")) {
+                user++;
+            } else {
+                computer++;
+            }
+
+        }
+        System.out.println("★★★ YOU WON " + user + " TIMES  ★★★ COMPUTER WON " + computer + " TIMES ★★★\n");
     }
 
     public static String getWinner() {
