@@ -6,7 +6,7 @@ public class Game {
 
     private static String userMove;
     private static String computerMove;
-    private static final List<String> winners = new ArrayList<>();
+    private static final List<String> winnersList = new ArrayList<>();
 
     public static void setUserMove(String userName) {
         String userChoice = setUserChoice();
@@ -22,10 +22,15 @@ public class Game {
             System.out.println("Please enter your shape:");
             System.out.println("\t if you chose scissors press 1 \n" +
                     "\t if you chose paper press 2 \n" +
-                    "\t if you chose rock press 3");
+                    "\t if you chose rock press 3 \n" +
+                    "\t for exit press x ");
             userChoice = scanner.nextLine();
-        } while (!userChoice.equals("1") && !userChoice.equals("2") && !userChoice.equals("3"));
+        } while (!userChoice.equals("1") && !userChoice.equals("2") && !userChoice.equals("3") && !userChoice.equals("x"));
         return userChoice;
+    }
+
+    public static boolean checkIfWantToPlay() {
+        return !userMove.equals("x");
     }
 
     public static void setComputerMove(String level) {
@@ -67,30 +72,31 @@ public class Game {
 
     public static void setWinner() {
         if (userMove.equals("1") && computerMove.equals("2")) {
-            winners.add("user");
-            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
+            winnersList.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★");
         } else if (userMove.equals("1") && computerMove.equals("3")) {
-            winners.add("computer");
-            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
+            winnersList.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★");
         } else if (userMove.equals("2") && computerMove.equals("1")) {
-            winners.add("computer");
-            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
+            winnersList.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★");
         } else if (userMove.equals("2") && computerMove.equals("3")) {
-            winners.add("user");
-            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
+            winnersList.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★");
         } else if (userMove.equals("3") && computerMove.equals("1")) {
-            winners.add("user");
-            System.out.println("★★★ YOU WIN THE ROUND! ★★★ \n");
+            winnersList.add("user");
+            System.out.println("★★★ YOU WIN THE ROUND! ★★★");
         } else if (userMove.equals("3") && computerMove.equals("2")) {
-            winners.add("computer");
-            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★ \n");
+            winnersList.add("computer");
+            System.out.println("★★★ COMPUTER WIN THE ROUND! ★★★");
         }
+        System.out.println("STATISTICS: " + winnersList + "\n");
     }
 
     public static String getWinner() {
         int userWonCounter = 0;
         int computerWonCounter = 0;
-        for(String winner : winners) {
+        for(String winner : winnersList) {
             if(winner.equals("user")) {
                 userWonCounter ++;
             } else {

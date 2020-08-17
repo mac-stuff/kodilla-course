@@ -4,21 +4,21 @@ public class Player {
 
     private final String name;
     private final String choice;
-    private String shape;
+    private String shapeOrExit;
 
     public Player(String name, String choice) {
         this.name = name;
         this.choice = choice;
-        setShape();
+        setShapeOrExit();
     }
 
-    public void setShape() {
-        if (choice.equals("1")) {
-            this.shape = "scissors";
-        } else if (choice.equals("2")) {
-            this.shape = "paper";
-        } else {
-            this.shape = "rock";
+    private void setShapeOrExit() {
+        switch (choice) {
+            case "1" -> this.shapeOrExit = "scissors";
+            case "2" -> this.shapeOrExit = "paper";
+            case "3" -> this.shapeOrExit = "rock";
+            case "x" -> this.shapeOrExit = "exit";
+            case "n" -> this.shapeOrExit = "new game";
         }
     }
 
@@ -27,6 +27,6 @@ public class Player {
     }
 
     public String printMessage() {
-        return name.toUpperCase() + " choose " + shape.toUpperCase();
+        return name.toUpperCase() + " choose " + shapeOrExit.toUpperCase();
     }
 }
