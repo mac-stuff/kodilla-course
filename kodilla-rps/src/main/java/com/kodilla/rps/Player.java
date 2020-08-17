@@ -18,7 +18,6 @@ public class Player {
             case "2" -> this.shapeOrExit = "paper";
             case "3" -> this.shapeOrExit = "rock";
             case "x" -> this.shapeOrExit = "exit";
-            case "n" -> this.shapeOrExit = "new game";
         }
     }
 
