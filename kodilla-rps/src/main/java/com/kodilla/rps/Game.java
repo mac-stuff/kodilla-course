@@ -95,7 +95,6 @@ public class Game {
     }
 
     private static void getStatistics() {
-        System.out.println("STATISTICS:");
         int user = 0;
         int computer = 0;
         for(String winner: winnersList) {
@@ -105,7 +104,7 @@ public class Game {
                 computer++;
             }
         }
-        System.out.println("★★★ YOU WON " + user + " TIMES  ★★★ COMPUTER WON " + computer + " TIMES ★★★\n");
+        System.out.println("YOU WON " + user + " TIMES. COMPUTER WON " + computer + " TIMES.\n");
     }
 
     public static void setWinner() {
@@ -129,11 +128,11 @@ public class Game {
 
     public static void printWinner() {
         if (winner.equals("user")) {
-            System.out.println("★★★ YOU WIN GAME! ★★★ Congratulations!\n");
+            System.out.println("★★★ YOU WIN GAME! ★★★ CONGRATULATIONS! ★★★");
         } else if (winner.equals("computer")) {
-            System.out.println("★★★ COMPUTER WIN GAME! ★★★ Game over!\n");
+            System.out.println("★★★ COMPUTER WIN GAME! ★★★ GAME OVER! ★★★");
         } else {
-            System.out.println("★★★ DRAW! ★★★ Game over!\n");
+            System.out.println("★★★ DRAW! ★★★ GAME OVER! ★★★");
         }
         System.out.println("★★★ GOOD BYE! ★★★");
     }
