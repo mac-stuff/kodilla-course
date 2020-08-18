@@ -10,7 +10,6 @@ public class RpsRunner {
     private static String gameLevel;
     private static String userName;
     private static int roundCounter = 0;
-    private static String winner;
     private static boolean end = false;
 
     public static void setGameLevel() {
@@ -38,18 +37,6 @@ public class RpsRunner {
         roundCounter = Integer.parseInt(roundNumber);
     }
 
-    public static void printWinner() {
-        if (winner.equals("user")) {
-            System.out.println("★★★ YOU WIN GAME! ★★★ Congratulations!\n");
-        } else if (winner.equals("computer")) {
-            System.out.println("★★★ COMPUTER WIN GAME! ★★★ Game over!\n");
-        } else {
-            System.out.println("★★★ DRAW! ★★★ Game over!\n");
-        }
-        System.out.println("★★★ GOOD BYE! ★★★");
-        end = true;
-    }
-
     public static void main(String[] args) {
         setGameLevel();
         setUserName();
@@ -59,11 +46,12 @@ public class RpsRunner {
             boolean wantPlay = checkIfWantToPlay();
             if (wantPlay) {
                 setComputerMove(gameLevel);
-                setWinner();
+                addWinner();
                 roundCounter--;
                 if (roundCounter == 0) {
-                    winner = getWinner();
+                    setWinner();
                     printWinner();
+                    end = true;
                 }
             } else {
                 System.out.println("★★★ GOOD BYE! ★★★");
