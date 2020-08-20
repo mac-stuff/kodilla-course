@@ -1,7 +1,5 @@
 package com.kodilla.exception.test;
 
-import com.kodilla.exception.io.FileReader;
-import com.kodilla.exception.io.FileReaderException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExceptionHandlingTest {
 
     @Test
-    public void checkIfProbablyIWillThrowExceptionThrowException() {
+    public void checkIfIThrowException() {
         // Given
         SecondChallenge secondChallenge = new SecondChallenge();
 
@@ -22,7 +20,7 @@ class ExceptionHandlingTest {
     }
 
     @Test
-    public void checkIfProbablyIWillThrowExceptionDoesNotThrowException() {
+    public void checkIfINotThrowException() {
         // Given
         SecondChallenge secondChallenge = new SecondChallenge();
 
@@ -31,7 +29,7 @@ class ExceptionHandlingTest {
     }
 
     @Test
-    public void checkIfProbablyIWillThrowExceptionReturnCorrectMessage() throws Exception {
+    public void checkIfIThrowExceptionAndReturnCorrectMessage() throws Exception {
         // Given
         SecondChallenge secondChallenge = new SecondChallenge();
 
