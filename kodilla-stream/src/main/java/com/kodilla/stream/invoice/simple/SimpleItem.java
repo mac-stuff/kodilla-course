@@ -1,6 +1,7 @@
 package com.kodilla.stream.invoice.simple;
 
 public class SimpleItem {
+
     private final SimpleProduct product;
     private final double quantity;
 
