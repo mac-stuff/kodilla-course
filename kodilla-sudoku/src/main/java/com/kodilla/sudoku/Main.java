@@ -10,5 +10,6 @@ public class Main {
             SudokuGame theGame = new SudokuGame();
             gameFinished = theGame.resolveSudoku();
         }
+        System.out.println("Good Bye!");
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SudokuBoard {
 
-    private List<SudokuRow> sudokuBoard = new ArrayList<>();
+    private final List<SudokuRow> sudokuBoard = new ArrayList<>();
 
     public SudokuBoard() {
         for (int i = 0; i < 9; i++) {
@@ -19,19 +19,18 @@ public class SudokuBoard {
 
     @Override
     public String toString() {
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n *--------------*--------------*--------------*\n");
-        for (int i = 0; i < sudokuBoard.size(); i++) {
-            SudokuRow sudokuRows = sudokuBoard.get(i);
+        for (SudokuRow sudokuRow : sudokuBoard) {
             for (int j = 0; j < 9; j++) {
                 stringBuilder.append(" | ");
-                int value = sudokuRows.getElements().get(i).getValue();
-                stringBuilder.append(value);
-//                if (value != -1) {
-//                    stringBuilder.append(value).append(" ");
-//                } else {
-//                    stringBuilder.append("  ");
-//                }
+                int value = sudokuRow.getElements().get(j).getElement();
+                if (value != 0) {
+                    stringBuilder.append(value).append(" ");
+                } else {
+                    stringBuilder.append("  ");
+                }
             }
             stringBuilder.append(" |\n");
             stringBuilder.append(" *--------------*--------------*--------------*\n");

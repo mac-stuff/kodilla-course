@@ -4,20 +4,24 @@ import java.util.List;
 
 public class SudokuGame {
 
-    Communicator communicator = new Communicator();
+    InputHandling inputHandling = new InputHandling();
     SudokuBoard sudokuBoard = new SudokuBoard();
+    boolean solveSudoku = false;
 
     boolean resolveSudoku() {
+
         System.out.println(sudokuBoard);
 
-        List<Integer> sudokuValues = communicator.inputSudokuValues();
-        int horizontal = sudokuValues.get(0);
-        int vertical = sudokuValues.get(1);
-        int value = sudokuValues.get(2);
-
-        sudokuBoard.getSudokuBoard().get(horizontal).getElements().get(vertical).setValue(value);
-        System.out.println(sudokuBoard);
-
-        return communicator.inputIsGameFinished().equals("y");
+        while (!solveSudoku) {
+            String choice = inputHandling.getUserChoice();
+            if (choice.equals("1")) {
+                List<Integer> coordinatesAndValue = inputHandling.getCoordinatesAndValues();
+                sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).setValue(coordinatesAndValue.get(2));
+                System.out.println(sudokuBoard);
+            } else {
+                solveSudoku = true;
+            }
+        }
+        return !inputHandling.getIsGameFinished().equals("y");
     }
 }
