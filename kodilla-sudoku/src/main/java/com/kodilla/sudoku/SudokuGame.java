@@ -18,8 +18,16 @@ public class SudokuGame {
             String choice = inputHandling.getUserChoice();
             if (choice.equals("1")) {
                 List<Integer> coordinatesAndValue = inputHandling.getCoordinatesAndValues();
-                sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).setValue(coordinatesAndValue.get(2));
-                System.out.println(sudokuBoard);
+
+                SudokuElement element = sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1));
+
+                if (element.getElement() == 0) {
+                    element.setValue(coordinatesAndValue.get(2));
+                    System.out.println(sudokuBoard);
+                } else {
+                    System.out.println("You cannot add value to this field because it is already taken. Try again.");
+                }
+
             } else {
                 sortElements.sortValues(sudokuBoard);
                 Map<Integer, SudokuElement> columns = sortElements.getColumns();
