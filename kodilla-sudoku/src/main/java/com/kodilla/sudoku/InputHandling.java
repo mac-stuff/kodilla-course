@@ -31,6 +31,7 @@ public class InputHandling {
             horizontal = scanner.nextLine();
             isCorrect = checkIfValueIsCorrect(horizontal);
         }
+        assert horizontal != null;
         values.add(Integer.parseInt(horizontal) - 1);
         isCorrect = false;
 
