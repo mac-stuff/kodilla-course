@@ -49,10 +49,8 @@ public class SortElements {
 
         for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
             SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(i);
-
             for (int j = 0; j < sudokuRow.getElements().size(); j++) {
                 SudokuElement sudokuElement = sudokuRow.getElements().get(j);
-
                 if (j == 0 || j == 1 || j == 2) {
                     if (i == 0 || i == 1 || i == 2) {
                         addValue(cubes, 0, sudokuElement);

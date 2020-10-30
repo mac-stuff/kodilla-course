@@ -13,11 +13,12 @@ public class SudokuLogic {
         int vertical = coordinatesAndValue.get(1);
         int value = coordinatesAndValue.get(2);
 
-        boolean ok = true;
+        boolean isCorrect= true;
+
         SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(horizontal);
         for (int j = 0; j < sudokuRow.getElements().size(); j++) {
             if (sudokuRow.getElements().get(j).getElement() == value) {
-                ok = false;
+                isCorrect= false;
                 break;
             }
         }
@@ -27,20 +28,18 @@ public class SudokuLogic {
                 List<SudokuElement> values = columns.get(vertical);
                 for (SudokuElement e : values) {
                     if (e.getElement() == value) {
-                        ok = false;
+                        isCorrect= false;
                         break;
                     }
                 }
             }
         }
 
-        System.out.println("columns: " + columns);
-
         int key = 10;
         for (Map.Entry<Integer, List<SudokuElement>> entry : cube.entrySet()) {
             List<SudokuElement> sudokuElements = entry.getValue();
             for (SudokuElement sudokuElement : sudokuElements) {
-                if (sudokuElement.getElement() == element.getElement()) {
+                if (sudokuElement == element) {
                     key = entry.getKey();
                     break;
                 }
@@ -50,18 +49,15 @@ public class SudokuLogic {
         for (Map.Entry<Integer, List<SudokuElement>> entry : cube.entrySet()) {
             if (entry.getKey().equals(key)) {
                 List<SudokuElement> sudokuElements = cube.get(key);
-                System.out.println(sudokuElements.toString());
                 for (SudokuElement sudokuElement : sudokuElements) {
                     if (sudokuElement.getElement() == value) {
-                        ok = false;
+                        isCorrect= false;
                         break;
                     }
                 }
             }
         }
 
-        System.out.println("cube: " + cube);
-        System.out.println("key: " + key);
-        return ok;
+        return isCorrect;
     }
 }
