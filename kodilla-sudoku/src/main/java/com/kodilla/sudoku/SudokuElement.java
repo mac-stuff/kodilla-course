@@ -2,6 +2,7 @@ package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SudokuElement {
@@ -11,15 +12,14 @@ public class SudokuElement {
 
     public void setValue(int value) {
         this.value = value;
-        possibleValues.remove(value);
+        possibleValues.removeAll(Collections.singletonList(value));
     }
 
-    public int getElement() {
+    public int getValue() {
         return value;
     }
 
-    @Override
-    public String toString() {
-        return "" + value;
+    public List<Integer> getPossibleValues() {
+        return possibleValues;
     }
 }

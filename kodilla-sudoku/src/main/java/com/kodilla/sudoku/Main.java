@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
 
         while (!gameFinished) {
-            SudokuGame theGame = new SudokuGame();
-            gameFinished = theGame.resolveSudoku();
+            SudokuGame sudokuGame = new SudokuGame();
+            gameFinished = sudokuGame.resolveSudoku();
         }
         System.out.println("Good Bye!");
     }

@@ -11,6 +11,7 @@ public class InputHandling {
     Scanner scanner = new Scanner(System.in);
 
     public String getUserChoice() {
+
         String choice = null;
         while (!isCorrect) {
             System.out.println("Please press '1' to enter coordinates (1-9) and values (1-9) or press '2' to solve SUDOKU: ");
@@ -18,13 +19,13 @@ public class InputHandling {
             isCorrect = checkIfChoiceIsCorrect(choice);
         }
         isCorrect = false;
+
         return choice;
     }
 
     public List<Integer> getCoordinatesAndValues() {
 
         List<Integer> values = new ArrayList<>();
-
         String horizontal = null;
         while (!isCorrect) {
             System.out.println("enter horizontal coordinate: ");

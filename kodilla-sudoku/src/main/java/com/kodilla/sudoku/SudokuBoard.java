@@ -25,7 +25,7 @@ public class SudokuBoard {
         for (SudokuRow sudokuRow : sudokuBoard) {
             for (int j = 0; j < 9; j++) {
                 stringBuilder.append(" | ");
-                int value = sudokuRow.getElements().get(j).getElement();
+                int value = sudokuRow.getElements().get(j).getValue();
                 if (value != 0) {
                     stringBuilder.append(value).append(" ");
                 } else {
