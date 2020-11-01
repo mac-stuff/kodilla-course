@@ -1,156 +1,101 @@
 package com.kodilla.sudoku;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SudokuGame {
 
     SudokuBoard sudokuBoard = new SudokuBoard();
-    SudokuColumns sudokuColumns = new SudokuColumns();
-    SudokuCubes sudokuCubes = new SudokuCubes();
     InputHandling inputHandling = new InputHandling();
-    boolean solveSudoku = false;
 
     boolean resolveSudoku() {
 
-        sudokuColumns.setColumns(sudokuBoard);
-        sudokuCubes.setCubes(sudokuBoard);
         System.out.println(sudokuBoard);
 
-        while (!solveSudoku) {
+        while (true) {
+            List<Integer> coordinatesAndValue = inputHandling.getCoordinatesAndValues();
 
-            String choice = inputHandling.getUserChoice();
-
-            if (choice.equals("1")) {
-                List<Integer> coordinatesAndValue = inputHandling.getCoordinatesAndValues();
-
-                SudokuElement sudokuElement = sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1));
-
-                if (sudokuElement.getValue() == 0) {
-                    boolean valueIsCorrect = checkIfCanEnterValue(coordinatesAndValue, sudokuElement);
-
-                    if (valueIsCorrect) {
-                        sudokuElement.setValue(coordinatesAndValue.get(2));
-                        eliminateValue(coordinatesAndValue, sudokuElement);
-                        System.out.println(sudokuBoard);
-
-                    } else {
-                        System.out.println("Invalid value. You cannot add this value to field. Try again.");
-                    }
-
+            if (coordinatesAndValue.isEmpty()) {
+                if (solveSudoku()) {
+                    System.out.println("Sudoku has been solved.");
                 } else {
-                    System.out.println("You cannot add value to this field because it is already taken. Try again.");
+                    System.out.println("You added unsolvable sudoku.");
                 }
+                break;
+            }
 
+            if (sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).getValue() == 0) {
+                if (areCorrect(coordinatesAndValue.get(0), coordinatesAndValue.get(1), coordinatesAndValue.get(2))) {
+                    sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).setValue(coordinatesAndValue.get(2));
+                    System.out.println(sudokuBoard);
+                } else {
+                    System.out.println("Invalid value. You cannot add this value to field. Try again.");
+                }
             } else {
-                //sortElements.sortValues(sudokuBoard);
-                //Map<Integer, List<SudokuElement>> columns = sortElements.getColumns();
-                //Map<Integer, SudokuElement> cube = sortElements.getCube();
-
-                solveSudoku = true;
+                System.out.println("You cannot add value to this field because it is already taken. Try again.");
             }
         }
-        return !inputHandling.getIsGameFinished().equals("y");
+        return !inputHandling.isGameFinished().equals("y");
     }
 
-    public boolean checkIfCanEnterValue(List<Integer> coordinatesAndValue, SudokuElement element) {
+    private boolean areCorrect(int row, int column, int number) {
+        return !isInRow(row, number) && !isInColumn(column, number) && !isInBox(row, column, number);
+    }
 
-        int horizontal = coordinatesAndValue.get(0);
-        int vertical = coordinatesAndValue.get(1);
-        int value = coordinatesAndValue.get(2);
-
-        boolean isCorrect = true;
-
-        SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(horizontal);
-        for (int i = 0; i < sudokuRow.getElements().size(); i++) {
-            if (sudokuRow.getElements().get(i).getValue() == value) {
-                isCorrect = false;
-                break;
+    private boolean isInRow(int row, int number) {
+        for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
+            if (sudokuBoard.getSudokuBoard().get(row).getElements().get(i).getValue() == number) {
+                return true;
             }
         }
+        return false;
+    }
 
-        List<SudokuElement> sudokuColumn = sudokuColumns.getColumns().get(vertical);
-        for (SudokuElement sudokuElement : sudokuColumn) {
-            if (sudokuElement.getValue() == value) {
-                isCorrect = false;
-                break;
+    private boolean isInColumn(int column, int number) {
+        for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
+            if (sudokuBoard.getSudokuBoard().get(i).getElements().get(column).getValue() == number) {
+                return true;
             }
         }
+        return false;
+    }
 
-        int key = getKey(element);
+    private boolean isInBox(int row, int column, int number) {
 
-        for (Map.Entry<Integer, List<SudokuElement>> entry : sudokuCubes.getCubes().entrySet()) {
-            if (entry.getKey().equals(key)) {
-                List<SudokuElement> sudokuCube = sudokuCubes.getCubes().get(key);
-                for (SudokuElement sudokuElement : sudokuCube) {
-                    if (sudokuElement.getValue() == value) {
-                        isCorrect = false;
-                        break;
-                    }
+        int horizontal = row - row % 3;
+        int vertical = column - column % 3;
+
+        for (int i = horizontal; i < horizontal + 3; i++) {
+            for (int j = vertical; j < vertical + 3; j++) {
+                if (sudokuBoard.getSudokuBoard().get(i).getElements().get(j).getValue() == number) {
+                    return true;
                 }
             }
         }
-
-        return isCorrect;
+        return false;
     }
 
-    public void eliminateValue(List<Integer> coordinatesAndValue, SudokuElement element) {
+    public boolean solveSudoku() {
 
-        int horizontal = coordinatesAndValue.get(0);
-        int vertical = coordinatesAndValue.get(1);
-        int value = coordinatesAndValue.get(2);
-
-        SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(horizontal);
-        for (int j = 0; j < sudokuRow.getElements().size(); j++) {
-            if (sudokuRow.getElements().get(j).getPossibleValues().contains(value)) {
-                sudokuRow.getElements().get(j).getPossibleValues().removeAll(Collections.singletonList(value));
-            }
-            if (sudokuRow.getElements().get(j).getPossibleValues().size() == 1) {
-                sudokuRow.getElements().get(j).setValue(sudokuRow.getElements().get(j).getPossibleValues().get(0));
-            }
-        }
-
-        List<SudokuElement> sudokuColumn = sudokuColumns.getColumns().get(vertical);
-        for (SudokuElement sudokuElement : sudokuColumn) {
-            if (sudokuElement.getPossibleValues().contains(value)) {
-                sudokuElement.getPossibleValues().removeAll(Collections.singletonList(value));
-            }
-            if (sudokuElement.getPossibleValues().size() == 1) {
-                sudokuElement.setValue(sudokuElement.getPossibleValues().get(0));
-            }
-        }
-
-        int key = getKey(element);
-
-        for (Map.Entry<Integer, List<SudokuElement>> entry : sudokuCubes.getCubes().entrySet()) {
-            if (entry.getKey().equals(key)) {
-                List<SudokuElement> sudokuCube = sudokuCubes.getCubes().get(key);
-                for (SudokuElement sudokuElement : sudokuCube) {
-                    if (sudokuElement.getPossibleValues().contains(value)) {
-                        sudokuElement.getPossibleValues().removeAll(Collections.singletonList(value));
+        for (int row = 0; row < sudokuBoard.getSudokuBoard().size(); row++) {
+            SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(row);
+            for (int column = 0; column < sudokuRow.getElements().size(); column++) {
+                SudokuElement sudokuElement = sudokuRow.getElements().get(column);
+                if (sudokuElement.getValue() == 0) {
+                    for (int number = 1; number < 10; number++) {
+                        if (areCorrect(row, column, number)) {
+                            sudokuBoard.getSudokuBoard().get(row).getElements().get(column).setValue(number);
+                            System.out.println(sudokuBoard);
+                            if (solveSudoku()) {
+                                return true;
+                            } else {
+                                sudokuBoard.getSudokuBoard().get(row).getElements().get(column).setValue(0);
+                            }
+                        }
                     }
-                    if (sudokuElement.getPossibleValues().size() == 1) {
-                        sudokuElement.setValue(sudokuElement.getPossibleValues().get(0));
-                    }
+                    return false;
                 }
             }
         }
-    }
-
-    private int getKey(SudokuElement element) {
-        int key = 10;
-        for (Map.Entry<Integer, List<SudokuElement>> entry : sudokuCubes.getCubes().entrySet()) {
-            List<SudokuElement> sudokuElements = entry.getValue();
-            for (SudokuElement sudokuElement : sudokuElements) {
-                if (sudokuElement == element) {
-                    key = entry.getKey();
-                    break;
-                }
-            }
-        }
-        return key;
+        return true;
     }
 }
-

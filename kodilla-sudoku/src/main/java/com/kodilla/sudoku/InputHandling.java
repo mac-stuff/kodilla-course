@@ -7,69 +7,40 @@ import java.util.Scanner;
 
 public class InputHandling {
 
-    private boolean isCorrect = false;
     Scanner scanner = new Scanner(System.in);
-
-    public String getUserChoice() {
-
-        String choice = null;
-        while (!isCorrect) {
-            System.out.println("Please press '1' to enter coordinates (1-9) and values (1-9) or press '2' to solve SUDOKU: ");
-            choice = scanner.nextLine();
-            isCorrect = checkIfChoiceIsCorrect(choice);
-        }
-        isCorrect = false;
-
-        return choice;
-    }
 
     public List<Integer> getCoordinatesAndValues() {
 
-        List<Integer> values = new ArrayList<>();
-        String horizontal = null;
-        while (!isCorrect) {
-            System.out.println("enter horizontal coordinate: ");
-            horizontal = scanner.nextLine();
-            isCorrect = checkIfValueIsCorrect(horizontal);
-        }
-        assert horizontal != null;
-        values.add(Integer.parseInt(horizontal) - 1);
-        isCorrect = false;
+        List<Integer> coordinatesAndValue = new ArrayList<>();
+        boolean isCorrect = false;
 
-        String vertical = null;
         while (!isCorrect) {
-            System.out.println("enter vertical coordinate: ");
-            vertical = scanner.nextLine();
-            isCorrect = checkIfValueIsCorrect(vertical);
-        }
-        values.add(Integer.parseInt(vertical) - 1);
-        isCorrect = false;
+            System.out.println("Please enter horizontal coordinate, vertical coordinate and value (from 1 to 9) separating with a comma (e.g: 2,4,7) " +
+                    "or type SUDOKU to solve sudoku: ");
+            String input = scanner.nextLine().replaceAll("\\s+","").toUpperCase();
 
-        String value = null;
-        while (!isCorrect) {
-            System.out.println("enter value: ");
-            value = scanner.nextLine();
-            isCorrect = checkIfValueIsCorrect(value);
-        }
-        values.add(Integer.parseInt(value));
-        isCorrect = false;
+            if (input.equals("SUDOKU")) {
+                return coordinatesAndValue;
+            }
 
-        return values;
+            String[] data = input.split(",");
+            if (data.length == 3) {
+                if (checkIfIsCorrect(data[0]) && checkIfIsCorrect(data[1]) && checkIfIsCorrect(data[2])) {
+                    coordinatesAndValue = Arrays.asList(Integer.parseInt(data[0]) - 1, Integer.parseInt(data[1]) - 1, Integer.parseInt(data[2]));
+                    isCorrect = true;
+                }
+            }
+        }
+        return coordinatesAndValue;
     }
 
-    private boolean checkIfChoiceIsCorrect(String value) {
-        List<String> correctValues = new ArrayList<>(Arrays.asList("1", "2"));
-        return correctValues.contains(value);
-    }
-
-    private boolean checkIfValueIsCorrect(String value) {
+    private boolean checkIfIsCorrect(String value) {
         List<String> correctValues = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
         return correctValues.contains(value);
     }
 
-    public String getIsGameFinished() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to play again? (if yes - press y, if no - press other key)");
+    public String isGameFinished() {
+        System.out.println("Do you want to play again? (if yes - press y, if no - press other key).");
         return scanner.nextLine().toLowerCase();
     }
 }
