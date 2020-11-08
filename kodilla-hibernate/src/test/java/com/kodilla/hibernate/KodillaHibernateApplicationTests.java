@@ -9,5 +9,4 @@ class KodillaHibernateApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
