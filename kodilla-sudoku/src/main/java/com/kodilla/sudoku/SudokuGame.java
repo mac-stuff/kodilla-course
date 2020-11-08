@@ -1,21 +1,28 @@
 package com.kodilla.sudoku;
 
-import java.util.*;
-
 public class SudokuGame {
 
-    SudokuBoard sudokuBoard = new SudokuBoard();
-    InputHandling inputHandling = new InputHandling();
+    private final SudokuBoard sudokuBoard;
+    private final InputHandler inputHandler;
+    private SudokuValidator sudokuValidator;
+    private final int boxSize;
+
+    public SudokuGame(int boardSize) {
+        this.boxSize = (int)Math.sqrt(boardSize);
+        sudokuBoard = new SudokuBoard(boardSize);
+        inputHandler = new InputHandler(boardSize);
+    }
 
     boolean resolveSudoku() {
 
         System.out.println(sudokuBoard);
 
         while (true) {
-            List<Integer> coordinatesAndValue = inputHandling.getCoordinatesAndValues();
+            ElementParameterDTO elementParameterDTO = inputHandler.getCoordinatesAndValues();
 
-            if (coordinatesAndValue.isEmpty()) {
+            if (elementParameterDTO == null) {
                 if (solveSudoku()) {
+                    System.out.println(sudokuBoard);
                     System.out.println("Sudoku has been solved.");
                 } else {
                     System.out.println("You added unsolvable sudoku.");
@@ -23,9 +30,10 @@ public class SudokuGame {
                 break;
             }
 
-            if (sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).getValue() == 0) {
-                if (areCorrect(coordinatesAndValue.get(0), coordinatesAndValue.get(1), coordinatesAndValue.get(2))) {
-                    sudokuBoard.getSudokuBoard().get(coordinatesAndValue.get(0)).getElements().get(coordinatesAndValue.get(1)).setValue(coordinatesAndValue.get(2));
+            if (sudokuBoard.getSudokuBoard().get(elementParameterDTO.getHorizontal()).getElements().get(elementParameterDTO.getVertical()).getValue() == 0) {
+                sudokuValidator = new SudokuValidator(boxSize, sudokuBoard, elementParameterDTO.getHorizontal(), elementParameterDTO.getVertical(), elementParameterDTO.getValue());
+                if (sudokuValidator.getAreCorrect()) {
+                    sudokuBoard.getSudokuBoard().get(elementParameterDTO.getHorizontal()).getElements().get(elementParameterDTO.getVertical()).setValue(elementParameterDTO.getValue());
                     System.out.println(sudokuBoard);
                 } else {
                     System.out.println("Invalid value. You cannot add this value to field. Try again.");
@@ -34,44 +42,7 @@ public class SudokuGame {
                 System.out.println("You cannot add value to this field because it is already taken. Try again.");
             }
         }
-        return !inputHandling.isGameFinished().equals("y");
-    }
-
-    private boolean areCorrect(int row, int column, int number) {
-        return !isInRow(row, number) && !isInColumn(column, number) && !isInBox(row, column, number);
-    }
-
-    private boolean isInRow(int row, int number) {
-        for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
-            if (sudokuBoard.getSudokuBoard().get(row).getElements().get(i).getValue() == number) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isInColumn(int column, int number) {
-        for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
-            if (sudokuBoard.getSudokuBoard().get(i).getElements().get(column).getValue() == number) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isInBox(int row, int column, int number) {
-
-        int horizontal = row - row % 3;
-        int vertical = column - column % 3;
-
-        for (int i = horizontal; i < horizontal + 3; i++) {
-            for (int j = vertical; j < vertical + 3; j++) {
-                if (sudokuBoard.getSudokuBoard().get(i).getElements().get(j).getValue() == number) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return !inputHandler.isGameFinished().equals("y");
     }
 
     public boolean solveSudoku() {
@@ -82,9 +53,9 @@ public class SudokuGame {
                 SudokuElement sudokuElement = sudokuRow.getElements().get(column);
                 if (sudokuElement.getValue() == 0) {
                     for (int number = 1; number < 10; number++) {
-                        if (areCorrect(row, column, number)) {
+                        sudokuValidator = new SudokuValidator(boxSize, sudokuBoard, row, column, number);
+                        if (sudokuValidator.getAreCorrect()) {
                             sudokuBoard.getSudokuBoard().get(row).getElements().get(column).setValue(number);
-                            System.out.println(sudokuBoard);
                             if (solveSudoku()) {
                                 return true;
                             } else {

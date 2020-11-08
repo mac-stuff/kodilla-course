@@ -7,8 +7,8 @@ public class SudokuRow {
 
     private final List<SudokuElement> sudokuRow = new ArrayList<>();
 
-    public SudokuRow() {
-        for (int i = 0; i < 9; i++) {
+    public SudokuRow(int size) {
+        for (int i = 0; i < size; i++) {
             this.sudokuRow.add(new SudokuElement());
         }
     }
