@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class TaskDaoTestSuite {
+class TaskDaoTest {
 
     private static final String DESCRIPTION = "Test: Learn Hibernate";
 
