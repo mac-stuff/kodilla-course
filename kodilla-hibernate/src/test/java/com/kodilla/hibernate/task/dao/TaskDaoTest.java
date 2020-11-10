@@ -67,7 +67,7 @@ class TaskDaoTest {
         Task task1 = new Task("Test: Study Hibernate", 3);
         Task task2 = new Task("Test: Practice Named Queries", 6);
         Task task3 = new Task("Test: Study native queries", 7);
-        Task task4 = new Task("Test: Makse some tests", 13);
+        Task task4 = new Task("Test: Make some tests", 13);
 
         TaskFinancialDetails tfd1 = new TaskFinancialDetails(new BigDecimal(5), false);
         TaskFinancialDetails tfd2 = new TaskFinancialDetails(new BigDecimal(10), false);
@@ -96,12 +96,14 @@ class TaskDaoTest {
         //When
         List<Task> longTasks = taskDao.retrieveLongTasks();
         List<Task> shortTasks = taskDao.retrieveShortTasks();
+        List<Task> durationLongerThanTasks = taskDao.retrieveTasksWithDurationLongerThan(6);
         List<Task> enoughTimeTasks = taskDao.retrieveTasksWithEnoughTime();
 
         //Then
         try {
             assertEquals(1, longTasks.size());
             assertEquals(3, shortTasks.size());
+            assertEquals(2, durationLongerThanTasks.size());
             assertEquals(3, enoughTimeTasks.size());
         } finally {
             //CleanUp
