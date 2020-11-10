@@ -7,7 +7,7 @@ import java.util.List;
 
 @NamedQuery(
         name = "Employee.retrieveByLastname",
-        query = "FROM Employee WHERE lastname = :LASTNAME"
+        query = "FROM EMPLOYEES WHERE lastname = :LASTNAME"
 )
 @Entity
 @Table(name = "EMPLOYEES")
