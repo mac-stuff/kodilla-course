@@ -5,11 +5,19 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedNativeQuery(
-        name = "Employee.retrieveByLastname",
-        query = "SELECT * FROM employees WHERE lastname = :LASTNAME",
-        resultClass = Employee.class
-)
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Employee.retrieveByLastname",
+                query = "SELECT * FROM EMPLOYEES WHERE LASTNAME = :LASTNAME",
+                resultClass = Employee.class
+        ),
+        @NamedNativeQuery(
+                name = "Employee.retrieveByCharacters",
+                query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE :STRING",
+                resultClass = Employee.class
+        )
+})
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
