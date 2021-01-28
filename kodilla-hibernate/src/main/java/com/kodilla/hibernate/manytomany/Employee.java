@@ -14,7 +14,7 @@ import java.util.List;
         ),
         @NamedNativeQuery(
                 name = "Employee.retrieveByCharacters",
-                query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE :STRING",
+                query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE CONCAT('%',:STRING,'%')",
                 resultClass = Employee.class
         )
 })

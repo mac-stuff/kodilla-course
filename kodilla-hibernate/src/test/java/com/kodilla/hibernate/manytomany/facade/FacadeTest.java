@@ -39,7 +39,7 @@ class FacadeTest {
         int greyMatterId = greyMatter.getId();
 
         //When
-        List<Company> companies = facade.searchCompanyByCharacters("Data Masters");
+        List<Company> companies = facade.searchCompanyByCharacters("Data");
 
         //Then
         assertEquals(1, companies.size());
@@ -65,7 +65,7 @@ class FacadeTest {
         int lkId = lindaSmith.getId();
 
         //When
-        List<Employee> employees = facade.searchEmployeeByCharacters("Smith");
+        List<Employee> employees = facade.searchEmployeeByCharacters("Smi");
 
         //Then
         assertEquals(2, employees.size());
