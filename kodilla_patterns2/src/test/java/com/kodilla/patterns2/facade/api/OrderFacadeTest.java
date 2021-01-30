@@ -19,10 +19,6 @@ class OrderFacadeTest {
 
     @Test
     public void testProcessOrder() throws OrderProcessingException {
-        //Given
-        //When
-        //orderFacade.processOrder(new OrderDto(), 1L);
-
-        //Then
+        LOGGER.info("Testing processOrder method");
     }
 }
