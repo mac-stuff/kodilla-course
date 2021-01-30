@@ -18,7 +18,7 @@ public class OrderFacade {
     public OrderFacade(ShopService shopService) {
         this.shopService = shopService;
     }
-
+//usun final
     public void processOrder(final OrderDto order, final Long userId) throws OrderProcessingException {
         boolean wasError = false;
         Long orderId = shopService.openOrder(userId);

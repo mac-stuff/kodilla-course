@@ -29,136 +29,96 @@ class PizzaOrderTest {
         String description = theOrder.getDescription();
 
         // Then
-        assertEquals("Enjoy your meal!", description);
+        assertEquals("Basic Margherita.", description);
     }
 
     @Test
-    public void testChildPizzaGetCost() {
+    public void testExtraBaconMushroomsPizzaGetCost() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new ChildPizzaDecorator(theOrder);
+        theOrder = new BaconDecorator(theOrder);
+        theOrder = new MushroomsDecorator(theOrder);
 
         //When
         BigDecimal theCost = theOrder.getCost();
 
         //Then
-        assertEquals(new BigDecimal(15), theCost);
+        assertEquals(new BigDecimal(35), theCost);
     }
 
     @Test
-    public void testChildPizzaGetDescription() {
+    public void testExtraBaconMushroomsPizzaGetDescription() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new ChildPizzaDecorator(theOrder);
+        theOrder = new BaconDecorator(theOrder);
+        theOrder = new MushroomsDecorator(theOrder);
 
         //When
         String description = theOrder.getDescription();
 
         //Then
-        assertEquals("Enjoy your meal! Bon appetit!", description);
+        assertEquals("Basic Margherita. Additional bacon. Additional mushrooms.", description);
     }
 
     @Test
-    public void testExpressPizzaGetCost() {
+    public void testExtraMozzarellaSalamiPeperoniPizzaGetCost() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new ExpressPizzaDecorator(theOrder);
+        theOrder = new MozzarellaDecorator(theOrder);
+        theOrder = new SalamiDecorator(theOrder);
+        theOrder = new PeperoniDecorator(theOrder);
 
         //When
         BigDecimal theCost = theOrder.getCost();
 
         //Then
-        assertEquals(new BigDecimal(25), theCost);
+        assertEquals(new BigDecimal(175), theCost);
     }
 
     @Test
-    public void testExpressPizzaGetDescription() {
+    public void testExtraMozzarellaSalamiPeperoniPizzaGetDescription() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new ExpressPizzaDecorator(theOrder);
+        theOrder = new MozzarellaDecorator(theOrder);
+        theOrder = new SalamiDecorator(theOrder);
+        theOrder = new PeperoniDecorator(theOrder);
 
         //When
         String description = theOrder.getDescription();
 
         //Then
-        assertEquals("Enjoy your meal! Bon appetit!", description);
+        assertEquals("Basic Margherita. Additional mozzarella. Additional salami. Additional peperoni.", description);
     }
 
     @Test
-    public void testGlutenFreePizzaGetCost() {
+    public void testExtraMozzarellaSalamiPeperoniBaconPizzaGetCost() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new GlutenFreePizzaDecorator(theOrder);
+        theOrder = new MozzarellaDecorator(theOrder);
+        theOrder = new SalamiDecorator(theOrder);
+        theOrder = new PeperoniDecorator(theOrder);
+        theOrder = new BaconDecorator(theOrder);
 
         //When
         BigDecimal theCost = theOrder.getCost();
 
         //Then
-        assertEquals(new BigDecimal(55), theCost);
+        assertEquals(new BigDecimal(185), theCost);
     }
 
     @Test
-    public void testGlutenFreePizzaGetDescription() {
+    public void testExtraMozzarellaSalamiPeperoniBaconPizzaGetDescription() {
         //Given
         PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new GlutenFreePizzaDecorator(theOrder);
+        theOrder = new MozzarellaDecorator(theOrder);
+        theOrder = new SalamiDecorator(theOrder);
+        theOrder = new PeperoniDecorator(theOrder);
+        theOrder = new BaconDecorator(theOrder);
 
         //When
         String description = theOrder.getDescription();
 
         //Then
-        assertEquals("Enjoy your meal! Bon appetit!", description);
-    }
-
-    @Test
-    public void testVegePizzaGetCost() {
-        //Given
-        PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new VegePizzaDecorator(theOrder);
-
-        //When
-        BigDecimal theCost = theOrder.getCost();
-
-        //Then
-        assertEquals(new BigDecimal(25), theCost);
-    }
-
-    @Test
-    public void testVegePizzaGetDescription() {
-        //Given
-        PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new VegePizzaDecorator(theOrder);
-
-        //When
-        String description = theOrder.getDescription();
-
-        //Then
-        assertEquals("Enjoy your meal! Bon appetit!", description);
-    }
-
-    @Test
-    public void testVipPizzaGetCost() {
-        //Given
-        PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new VipPizzaDecorator(theOrder);
-
-        //When
-        BigDecimal theCost = theOrder.getCost();
-
-        //Then
-        assertEquals(new BigDecimal(105), theCost);
-    }
-
-    @Test
-    public void testVipPizzaGetDescription() {
-        //Given
-        PizzaOrder theOrder = new BasicPizzaOrder();
-        theOrder = new VipPizzaDecorator(theOrder);
-
-        //When
-        String description = theOrder.getDescription();
-
-        //Then
-        assertEquals("Enjoy your meal! Bon appetit!", description);
+        assertEquals("Basic Margherita. Additional mozzarella. Additional salami. Additional peperoni. Additional bacon.", description);
     }
 }
