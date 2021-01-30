@@ -18,14 +18,13 @@ public class OrderFacade {
     public OrderFacade(ShopService shopService) {
         this.shopService = shopService;
     }
-//usun final
+
     public void processOrder(final OrderDto order, final Long userId) throws OrderProcessingException {
         boolean wasError = false;
         Long orderId = shopService.openOrder(userId);
         LOGGER.info("Registering new order, ID: " + orderId);
         if (orderId < 0) {
             LOGGER.error(OrderProcessingException.ERR_NOT_AUTHORISED);
-            wasError = true;
             throw new OrderProcessingException(OrderProcessingException.ERR_NOT_AUTHORISED);
         }
         try {
