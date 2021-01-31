@@ -5,10 +5,12 @@ import java.util.List;
 
 public class TasksQueue implements Observable {
 
+    private final String name;
     private final List<Observer> observers;
     private final List<Task> tasks;
 
-    public TasksQueue() {
+    public TasksQueue(String name) {
+        this.name = name;
         observers = new ArrayList<>();
         tasks = new ArrayList<>();
     }
@@ -34,6 +36,8 @@ public class TasksQueue implements Observable {
             observer.update(this);
         }
     }
+
+    public String getName() { return name; }
 
     public List<Task> getTasks() {
         return tasks;

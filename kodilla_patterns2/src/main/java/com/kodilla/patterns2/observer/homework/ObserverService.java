@@ -12,8 +12,8 @@ public class ObserverService implements Observer {
     @Override
     public void update(TasksQueue tasksQueue) {
         updateCount++;
-        System.out.println("Hi, " + mentorName + " - student added new task in queue: " +
-                "(total in queue: " + tasksQueue.getTasks().size() + " tasks)");
+        System.out.println("Hi, " + mentorName + " - student added new task in: " +
+                tasksQueue.getName() + "(total in queue: " + tasksQueue.getTasks().size() + " tasks)\n");
     }
 
     public int getUpdateCount() {
