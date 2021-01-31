@@ -12,8 +12,9 @@ public class OrderWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderWatcher.class);
 
-    @Before("execution(* com.kodilla.patterns2.facade.api.OrderFacade.processOrder(..))")
-    public void logEvent() {
-        LOGGER.info("test");
+    @Before("execution(* com.kodilla.patterns2.facade.api.OrderFacade.processOrder(..))" +
+            "&& args(order, userId) && target(object)")
+    public void logEvent(OrderDto order, Long userId, Object object) {
+        LOGGER.info("\n\n>>> class: " + object.getClass().getName() + "\n>>> args: " + order + " and " + userId + "\n");
     }
 }
