@@ -11,27 +11,24 @@ public class FacebookTestingApp {
     public static final String XPATH_ACCEPT_ALL = "//*[@id=\"u_0_h\"]";
     public static final String XPATH_CREATE_ACCOUNT = "//*[@id=\"u_0_2\"]";
 
-    public static final String XPATH_SELECT_MONTH = "//*[@id=\"month\"]";
-    public static final String XPATH_SELECT_DAY = "//*[@id=\"day\"]";
-    public static final String XPATH_SELECT_YEAR = "//*[@id=\"year\"]";
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get("https://www.facebook.com");
 
         driver.findElement(By.xpath(XPATH_ACCEPT_ALL)).click();
+        Thread.sleep(1000);
+
         driver.findElement(By.xpath(XPATH_CREATE_ACCOUNT)).click();
+        Thread.sleep(1000);
 
-        while (!driver.findElement(By.xpath(XPATH_SELECT_MONTH)).isDisplayed());
+        Select selectMonth = new Select(driver.findElement(By.name("birthday_month")));
+        selectMonth.selectByVisibleText("Jul");
 
-        Select selectMonth = new Select(driver.findElement(By.name(XPATH_SELECT_MONTH)));
-        selectMonth.selectByVisibleText("7");
+        Select selectDay = new Select(driver.findElement(By.name("birthday_day")));
+        selectDay.selectByVisibleText("13");
 
-        Select selectDay = new Select(driver.findElement(By.xpath(XPATH_SELECT_DAY)));
-        selectDay.selectByValue("13");
-
-        Select selectYear = new Select(driver.findElement(By.xpath(XPATH_SELECT_YEAR)));
-        selectYear.selectByValue("1983");
+        Select selectYear = new Select(driver.findElement(By.name("birthday_year")));
+        selectYear.selectByVisibleText("1983");
     }
 }
