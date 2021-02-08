@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class CrudAppTestingApp{
+public class CrudAppTestingApp {
 
     public static final String XPATH_INPUT = "//html/body/main/section/form/fieldset/input";
     public static final String XPATH_TEXTAREA = "//html/body/main/section/form/fieldset[2]/textarea";

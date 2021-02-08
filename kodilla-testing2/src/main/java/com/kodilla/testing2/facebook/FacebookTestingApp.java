@@ -26,7 +26,7 @@ public class FacebookTestingApp {
         while (!driver.findElement(By.xpath(XPATH_SELECT_MONTH)).isDisplayed());
 
         Select selectMonth = new Select(driver.findElement(By.name(XPATH_SELECT_MONTH)));
-        selectMonth.selectByValue("7");
+        selectMonth.selectByVisibleText("7");
 
         Select selectDay = new Select(driver.findElement(By.xpath(XPATH_SELECT_DAY)));
         selectDay.selectByValue("13");
