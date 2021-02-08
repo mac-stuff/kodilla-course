@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +36,7 @@ class CrudAppTestingAppTest {
         sendTestTaskToTrello(taskName);
         Thread.sleep(2000);
         deleteTestTask();
+        Thread.sleep(3000);
         assertTrue(checkTaskExistsInTrello(taskName));
     }
 
@@ -115,6 +115,6 @@ class CrudAppTestingAppTest {
     }
 
     private void deleteTestTask() {
-        driver.findElements(By.className("datatable__button")).get(-1).click();
+        driver.findElement(By.xpath("(/html/body/main/section[2]/div/form[2]/div/fieldset[1]/button[4])[last()]")).click();
     }
 }
