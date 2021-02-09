@@ -100,7 +100,7 @@ class CrudAppTestingAppTest {
 
         Thread.sleep(4000);
 
-        driverTrello.findElements(By.xpath("//a[@class=\"board-title\"]")).stream()
+        driverTrello.findElements(By.xpath("//a[@class=\"board-tile\"]")).stream()
                 .filter(aHref -> aHref.findElements(By.xpath(".//div[@title=\"Kodilla Application\"]")).size() > 0)
                 .forEach(WebElement::click);
 
